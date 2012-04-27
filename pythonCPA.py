@@ -40,7 +40,7 @@ except NameError:
 try:
   numberToCall = "+" + numberToCall
 except NameError:
-  numberToCall = "+14072559655"
+  numberToCall = "+14075551234"
 
 call_event = call(numberToCall, {
 "callerID" : outboundCallerID, 

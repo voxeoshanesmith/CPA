@@ -14,6 +14,7 @@ $outboundCallerID = is_null($callerID)  ? "13971234567" : $callerID;
 $cpaMaxSilence = is_null($maxSilence)  ? "900" : $maxSilence;
 $cpaMaxTime = is_null($maxTime)  ? "6000" : $maxTime;
 $cpaRunTime = is_null($runTime)  ? "30000" : $runTime;
+$cpaRunTime = is_null($numberToCall)  ? "+14075551234" : "+".$numberToCall;
 
 $options = array("callerID" => outboundCallerID, "timeout" => "90");
 
@@ -22,7 +23,7 @@ $call_event = call($numberToCall, $options);
 if ($call_event->name == "answer") {
 
   // Outbound call is answered.
-  _log("*** Outbound call answered by " + $call_event->value->calledID);
+  _log("*** Outbound call answered by " . $call_event->value->calledID);
 
   // Do transfer to CCXML CPA script with SIP headers.
   $cpa_headers = array(

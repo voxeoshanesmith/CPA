@@ -65,7 +65,14 @@ try {
     cpaRunTime = '30000'
 }
 
-def call_event = call("+14072559655", [
+try {
+   numberToCall = "+" + numberToCall
+} catch(e) {
+    numberToCall = '+14075551234'
+}
+
+
+def call_event = call(numberToCall, [
     callerID: outboundCallerID, 
     timeout: '90'
 ])

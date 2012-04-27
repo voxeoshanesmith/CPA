@@ -24,13 +24,14 @@ var outboundCallerID = typeof (callerID) == 'undefined' ? '13971234567' : caller
 var cpaMaxSilence = typeof (maxSilence) == 'undefined' ? '900' : maxSilence;
 var cpaMaxTime = typeof (maxTime) == 'undefined' ? '6000' : maxTime;
 var cpaRunTime = typeof (runTime) == 'undefined' ? '30000' : runTime;
+var cpaRunTime = typeof (numberToCall) == 'undefined' ? '+14075551234' : "+" + numberToCall;
 
 var options = {
     'callerID' : outboundCallerID,
     'timeout' : '90'
 };
 
-var call_event = call("+14072559655", options);
+var call_event = call(numberToCall, options);
 
 if (call_event.name == 'answer') {
 
