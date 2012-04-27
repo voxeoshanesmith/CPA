@@ -1,0 +1,106 @@
+/**
+* Required defiables that must be submitted with API call.
+*/
+// numberToCall - the number to make the outbound call to.
+// initialMessage - an initial message to play to the called party while CPA detection takes place.
+// initialMessageType - text to be rendered using TTS or an audio file URL (tts / audio)
+def message = 'Craig Jones. Your response is required after listening to the message. Please do not hang up without responding. If this is, Craig Jones, please press 1 to continue. If not, please press 2.'
+
+def initialCallerMessage
+try {
+   initialCallerMessage = initialMessage
+} catch(e) {
+    initialCallerMessage = message
+}
+
+def initialCallerMessageType
+try {
+   initialCallerMessageType = initialMessageType
+} catch(e) {
+    initialCallerMessageType = 'tts'
+}
+
+/**
+* Optional defiables that can be submitted with API call.
+*/
+// voice - the TTS voice to use when playing the initial message: Victor (male), or Vanessa (female).
+// callerID - the caller ID to use on the outbound call attempt.
+// maxTime - The maximum time for initial voice activity used to detect
+// voicemail or answering machine messages.
+// maxSilence - The maximum amount of silence used to detect the end of voice activity.
+// runTime - The maximum runtime for CPA.
+
+def ttsVoice
+try {
+    ttsVoice = voice
+} catch(e) {
+    ttsVoice = 'Allison'
+}
+
+def outboundCallerID
+try {
+   outboundCallerID = callerID
+} catch(e) {
+    outboundCallerID = '13971234567'
+}
+
+def cpaMaxSilence
+try {
+   cpaMaxSilence = maxSilence
+} catch(e) {
+    cpaMaxSilence = '900'
+}
+
+def cpaMaxTime
+try {
+   cpaMaxTime = maxTime
+} catch(e) {
+    cpaMaxTime = '6000'
+}
+
+def cpaRunTime
+try {
+   cpaRunTime = runTime
+} catch(e) {
+    cpaRunTime = '30000'
+}
+
+def call_event = call("+14072559655", [
+    callerID: outboundCallerID, 
+    timeout: '90'
+])
+
+if (call_event.name == 'answer') {
+
+    // Outbound call is answered.
+    log('*** Outbound call answered by ' + call_event.value.calledID)
+
+    // Do transfer to CCXML CPA script with SIP headers.
+    def cpa_headers = [
+        'x-cpa-max-silence' : cpaMaxSilence,
+        'x-cpa-max-time' : cpaMaxTime,
+        'x-cpa-runtime' : cpaRunTime,
+        'x-initial-message' : initialCallerMessage,
+        'x-initial-message-type' : initialCallerMessageType,
+        'x-tts-voice' : ttsVoice
+    ]
+    def cpa_event = transfer('sip:9996151102@sip-noproxy.voxeo.net', [headers:cpa_headers])
+
+    // Back from CCXML.
+    log('*** Transfer to CPA script complete ***')
+
+    // Get CPA result.
+    def result = cpa_event.value.getHeader('x-cparesult')
+    def selection = cpa_event.value.getHeader('x-caller-selection')
+    log('*** CPA result returned from CCXML: ' + result)
+
+    // Play message to the caller.
+    say('C P A detection is now complete. I detected you as ' + result, [voice: ttsVoice])
+  
+    say('Goodbye', [voice: ttsVoice])
+    hangup()
+}
+
+else {
+    log('*** Call not answered. ***')
+}
