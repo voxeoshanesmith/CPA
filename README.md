@@ -73,4 +73,7 @@ Also note that the use of the 'collect' initialMessageType can provide another d
 
 
 #Limitations
-Currently, the CPA detection method detailed here works in Tropo Scripting. If you are using webAPI, you can have the CPA script transfer to you webAPI app once the CPA result is acquired.  
+Currently, the CPA detection method detailed here works in Tropo Scripting. If you are using webAPI, you can have the CPA script transfer to you webAPI app once the CPA result is acquired.
+
+#Further Reading:
+[Voxeo Labs Article on Answering Machine Dectection / Call Progress Analyzer](https://evolution.voxeo.com/wiki/docs:answering_machine_detection)
