@@ -6,7 +6,7 @@ A CCXML application for providing advanced CPA detection to Tropo scripts. Also 
 ***
 Tropo applications can interact with the Voxeo CPA detection application by doing a transfer to a specific SIP address on the Voxeo network and passing along customer SIP headers with the call.
 
-    9996151102@sip-noproxy.voxeo.net
+    sip:9990051129@sbc-external.orl.voxeo.net
 
 This will pass control of the call to the CPA detection app. When detection is finished or the initial message is finished playing (whichever occurs first), the CPA application will return control to the Tropo script that initiated the transfer, passing back the result of the CPA detection in a custom sip header:
 
