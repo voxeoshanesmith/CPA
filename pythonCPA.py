@@ -69,7 +69,7 @@ if call_event.name == "answer" :
   "x-initial-message-type" : initialCallerMessageType
   }
 
-  cpa_event = transfer("sip:9996151102@sip-noproxy.voxeo.net", {
+  cpa_event = transfer("sip:9990051129@sbc-external.orl.voxeo.net", {
   "headers":cpa_headers 
   })
 

@@ -34,7 +34,7 @@ if ($call_event->name == "answer") {
     "x-initial-message-type" => $initialCallerMessageType
     );
 
-  $cpa_event = transfer("sip:9996151102@sip-noproxy.voxeo.net", array("headers" => $cpa_headers ));
+  $cpa_event = transfer("sip:9990051129@sbc-external.orl.voxeo.net", array("headers" => $cpa_headers ));
 
   // Back from CCXML.
   _log("*** Transfer to CPA script complete ***");

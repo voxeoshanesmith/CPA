@@ -47,7 +47,7 @@ if (call_event.name == 'answer') {
         'x-initial-message-type' : initialCallerMessageType,
         'x-tts-voice' : ttsVoice
     };
-    var cpa_event = transfer('sip:9996151102@sip.voxeo.net', { 'headers' : cpa_headers });
+    var cpa_event = transfer('sip:9990051129@sbc-external.orl.voxeo.net', { 'headers' : cpa_headers });
 
     // Back from CCXML.
     log('*** Transfer to CPA script complete ***');
